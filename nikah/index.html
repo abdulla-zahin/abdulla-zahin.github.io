@@ -110,7 +110,6 @@
     .rsvp-inner { position: relative; z-index: 1; width: min(620px, 100%); }
     .rsvp h2 { margin: 0 0 20px; color: var(--deep); font: 400 clamp(3.2rem, 9vw, 6.3rem)/.95 var(--display); }
     .rsvp p { max-width: 440px; margin: 0 auto 32px; color: var(--muted); font-size: .88rem; }
-    .rsvp .primary-action { min-height: 58px; padding-inline: 32px; }
     .with-love { margin-top: 70px !important; color: var(--gold) !important; font: 1.15rem var(--display) !important; }
     .with-love span { display: block; margin-top: 6px; color: var(--ocean); font: .7rem var(--sans); letter-spacing: .15em; text-transform: uppercase; }
     footer { padding: 34px 20px 105px; color: rgba(255,255,255,.7); background: var(--deep); text-align: center; font-size: .68rem; letter-spacing: .1em; }
@@ -122,21 +121,10 @@
     .dock-button:last-child { color: white; background: var(--ocean); }
     .toast { position: fixed; z-index: 120; left: 50%; top: max(18px, env(safe-area-inset-top)); padding: 11px 18px; border-radius: 999px; color: white; background: var(--deep); font-size: .75rem; box-shadow: 0 12px 35px rgba(0,0,0,.18); opacity: 0; transform: translate(-50%, -20px); pointer-events: none; transition: .3s ease; }
     .toast.show { opacity: 1; transform: translate(-50%, 0); }
-    .celebration { position: fixed; inset: 0; z-index: 115; display: grid; place-items: center; overflow: hidden; background: rgba(7,59,60,.22); backdrop-filter: blur(5px); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .25s ease, visibility .25s; }
-    .celebration.show { opacity: 1; visibility: visible; }
-    .celebration-message { position: relative; z-index: 2; width: min(330px, calc(100% - 42px)); padding: 36px 24px 31px; border: 1px solid rgba(184,141,76,.6); background: rgba(255,253,250,.94); box-shadow: 0 24px 70px rgba(7,59,60,.28); color: var(--deep); text-align: center; transform: scale(.75) translateY(18px); opacity: 0; }
-    .celebration.show .celebration-message { animation: blessing-pop 1.35s var(--ease) both; }
-    .celebration-arabic { display: block; color: var(--ocean); font: 2.4rem/1.35 var(--arabic); }
-    .celebration-message strong { display: block; margin-top: 5px; color: var(--gold); font: 2.15rem/1 var(--display); font-weight: 400; }
-    .celebration-message small { display: block; margin-top: 12px; color: var(--muted); font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; }
-    .blessing-piece { position: absolute; left: 50%; top: 50%; color: var(--piece-color, #b88d4c); font-size: var(--piece-size, 18px); opacity: 0; }
-    .celebration.show .blessing-piece { animation: blessing-burst 1.25s var(--ease) var(--piece-delay, 0s) both; }
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
     .reveal.visible { opacity: 1; transform: none; }
     @keyframes arrive { from { opacity: 0; transform: translateY(22px) scale(.98); } }
     @keyframes bob { 50% { transform: translateY(5px); } }
-    @keyframes blessing-pop { 0% { opacity: 0; transform: scale(.72) translateY(18px); } 25%, 78% { opacity: 1; transform: scale(1) translateY(0); } 100% { opacity: 0; transform: scale(.96) translateY(-8px); } }
-    @keyframes blessing-burst { 0% { opacity: 0; transform: translate(-50%,-50%) rotate(0deg) scale(.3); } 18% { opacity: 1; } 100% { opacity: 0; transform: translate(calc(-50% + var(--piece-x)), calc(-50% + var(--piece-y))) rotate(var(--piece-rotate)) scale(1); } }
     @media (max-width: 720px) {
       .hero-content { width: calc(100% - 72px); margin-left: 58px; }
       h1 { font-size: clamp(3.25rem, 17vw, 5.8rem); }
@@ -215,11 +203,7 @@
     .with-love span { color: #f1e3cb; }
     footer { background: #160f0c; }
     .dock-button { color: #4b382d; }
-    .dock-button:last-child { color: #251a15; background: #d8b66d; }
-    .celebration { background: rgba(29,20,16,.55); }
-    .celebration-message { background: rgba(44,31,25,.96); color: #f7ead0; }
-    .celebration-arabic { color: #efd99f; }
-    .celebration-message small { color: #cbbdae; }
+    .dock-button { color: #251a15; background: #d8b66d; }
     @media (max-width: 720px) {
       .botanical { width: 180px; opacity: .82; }
       .botanical-left { left: 36px; top: -10px; }
@@ -321,31 +305,21 @@
       </div>
     </section>
 
-    <section class="rsvp" id="rsvp">
+    <section class="rsvp" id="blessing">
       <div class="rsvp-inner reveal">
-        <p class="eyebrow">Your presence is our present</p><h2>Will you join us?</h2>
-        <p>Tap below to confirm your presence through WhatsApp.</p>
-        <button class="primary-action" data-rsvp>Confirm presence</button>
+        <p class="eyebrow">Your presence is our present</p>
+        <h2>We look forward to<br>celebrating with you.</h2>
         <p class="with-love">With love and dua <span>Mohasin · Farhana · Ridah</span></p>
       </div>
     </section>
   </main>
 
   <footer><b>Abdulla Zahin &amp; Sundhus Fathima</b>24—25 December 2026 · Kerala</footer>
-  <div class="action-dock" aria-label="Invitation actions"><button class="dock-button" id="shareInvitation">Share invitation</button><button class="dock-button" data-rsvp>Confirm presence</button></div>
+  <div class="action-dock" aria-label="Invitation actions"><button class="dock-button" id="shareInvitation">Share invitation</button></div>
   <div class="toast" id="toast" role="status" aria-live="polite">Invitation link copied</div>
-  <div class="celebration" id="celebration" aria-hidden="true">
-    <div class="celebration-message">
-      <span class="celebration-arabic" lang="ar" dir="rtl">مَا شَاءَ ٱللَّٰهُ</span>
-      <strong>Masha Allah!</strong>
-      <small>We look forward to celebrating with you</small>
-    </div>
-  </div>
-
   <script>
     const body = document.body;
     const toast = document.getElementById('toast');
-    const celebration = document.getElementById('celebration');
     function openInvitation() {
       body.classList.add('opened');
       sessionStorage.setItem('nikah-opened', 'yes');
@@ -366,41 +340,13 @@
       setTimeout(() => toast.classList.remove('show'), 2200);
     }
     const invitationText = `You're invited to the Wedding Reception of Abdulla Zahin & Sundhus Fathima on 25 December 2026. The Nikah will be held on 24 December 2026. View the invitation: ${location.href}`;
-    const confirmationText = `Assalamu Alaikum! I am delighted to confirm my presence for the Wedding Reception of Abdulla Zahin & Sundhus Fathima on 25 December 2026. ${location.href}`;
-    function celebrateAndConfirm() {
-      celebration.querySelectorAll('.blessing-piece').forEach((piece) => piece.remove());
-      const symbols = ['✦', '✧', '☾', '❋'];
-      for (let index = 0; index < 26; index += 1) {
-        const piece = document.createElement('span');
-        const angle = (Math.PI * 2 * index / 26) + (Math.random() * .25);
-        const distance = 135 + Math.random() * 260;
-        piece.className = 'blessing-piece';
-        piece.textContent = symbols[index % symbols.length];
-        piece.style.setProperty('--piece-x', `${Math.cos(angle) * distance}px`);
-        piece.style.setProperty('--piece-y', `${Math.sin(angle) * distance}px`);
-        piece.style.setProperty('--piece-rotate', `${Math.round(Math.random() * 420 - 210)}deg`);
-        piece.style.setProperty('--piece-delay', `${Math.random() * .14}s`);
-        piece.style.setProperty('--piece-size', `${12 + Math.random() * 15}px`);
-        piece.style.setProperty('--piece-color', index % 3 === 0 ? '#ffffff' : index % 2 === 0 ? '#7eaaa5' : '#d5ae67');
-        celebration.appendChild(piece);
-      }
-      celebration.classList.remove('show');
-      void celebration.offsetWidth;
-      celebration.classList.add('show');
-      const destination = `https://wa.me/919995600555?text=${encodeURIComponent(confirmationText)}`;
-      setTimeout(() => {
-        celebration.classList.remove('show');
-        window.location.href = destination;
-      }, 1350);
-    }
-    document.querySelectorAll('[data-rsvp]').forEach((button) => button.addEventListener('click', celebrateAndConfirm));
     document.getElementById('shareInvitation').addEventListener('click', async () => {
       if (navigator.share) {
         try { await navigator.share({ title: 'Abdulla & Sundhus · Wedding Invitation', text: invitationText, url: location.href }); return; }
         catch (error) { if (error.name === 'AbortError') return; }
       }
       try { await navigator.clipboard.writeText(location.href); showToast('Invitation link copied'); }
-      catch { window.open(`https://wa.me/?text=${encodeURIComponent(invitationText)}`, '_blank', 'noopener'); }
+      catch { showToast('Use your browser Share menu'); }
     });
 
     const events = {
